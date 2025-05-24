@@ -13,6 +13,10 @@ class Teacher(models.Model):
     last_name  = models.CharField(max_length=100)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
 
+class Class (models.Model):
+    name = models.CharField(max_length=100)
+    year = models.IntegerField(default=1)
+
 class Student(models.Model):
     name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -21,9 +25,7 @@ class Student(models.Model):
     def __str__(self):
         return self.student_name
 
-class Class (models.Model):
-    name = models.CharField(max_length=100)
-    year = models.IntegerField(default=1)
+
 
 class Schedule(models.Model):
-    clas = models.FreignKey(subject, on_delete=models.CASCADE)
+    clas = models.FreignKey(Subject, on_delete=models.CASCADE)
