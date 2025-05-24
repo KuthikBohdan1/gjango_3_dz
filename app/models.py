@@ -23,9 +23,38 @@ class Student(models.Model):
     student_class = models.CharField(Class , on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.student_name
+        return self.student
 
 
 
 class Schedule(models.Model):
-    clas = models.FreignKey(Subject, on_delete=models.CASCADE)
+    DAYS = (
+        ('Monday', 'Понеділок'),
+        ('Tuesday', 'Вівторок' ),
+        ('Wednesday', 'Середа'),
+        ('Thursday', 'Четверг'),
+        ('Friday', 'Пятния'),
+        ('Saturday', 'Субота'),
+        ('Sunday', 'Неділя')
+        )
+
+    week_day = models.CharField(max_length=15, choices=DAYS)
+    start_time = models.CharField(max_length=20)
+    Subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    Class = models.ForeignKey(Class, on_delete=models.CASCADE)
+    Teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+##
+
+class Grade(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    Subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    grade = models.IntegerField()
+    date = models.DateTimeField(auto_now_add = True)
+
+
+
+
